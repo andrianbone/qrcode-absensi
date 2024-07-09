@@ -1,0 +1,43 @@
+name: qrcode_absensi
+description: "A new Flutter project."
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+  mobile_scanner: ^2.1.0
+  qr_flutter: ^4.1.0
+  qr_scanner_overlay: ^0.0.2
+  http: ^0.13.3
+  shared_preferences: ^2.0.13
+  fluttertoast: ^8.0.8
+  path_provider: ^2.1.2
+  art_sweetalert: ^0.0.5
+  intl: ^0.17.0
+  gsheets: ^0.4.2
+  googleapis: ^8.0.0
+  googleapis_auth: ^1.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/splash.png
+    - assets/absen.txt
+
+
