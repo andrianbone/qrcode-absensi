@@ -557,7 +557,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 child: Container(
               alignment: Alignment.center,
               child: const Text(
-                "Developed by IT Broadcast 2024 V.2",
+                "",
                 style: TextStyle(
                   color: Colors.black87,
                   fontSize: 14,
@@ -565,6 +565,18 @@ class _FirstScreenState extends State<FirstScreen> {
                 ),
               ),
             )),
+            // Expanded(
+            //     child: Container(
+            //   alignment: Alignment.center,
+            //   child: const Text(
+            //     "Developed by IT Broadcast 2024 V.2",
+            //     style: TextStyle(
+            //       color: Colors.black87,
+            //       fontSize: 14,
+            //       letterSpacing: 1,
+            //     ),
+            //   ),
+            // )),
           ],
         ),
       ),

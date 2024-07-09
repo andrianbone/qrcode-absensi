@@ -134,7 +134,7 @@ class _QRScannerState extends State<QRScanner> {
                 child: Container(
               alignment: Alignment.center,
               child: const Text(
-                "Developed by IT Broadcast 2024 V.2",
+                "",
                 style: TextStyle(
                   color: Colors.black87,
                   fontSize: 14,
