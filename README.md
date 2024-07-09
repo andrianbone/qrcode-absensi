@@ -14,3 +14,8 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+![image](https://github.com/andrianbone/qrcode-absensi/assets/174419884/aa94dba9-1033-49cb-97be-7730806bac5f)
+
+Aplikasi Mobile Sistem Absensi Berbasis QR Code adalah sebuah proyek yang bertujuan untuk mengotomatisasi proses absensi di suatu event menggunakan teknologi QR code atau bisa input manual. Aplikasi ini dikembangkan dengan menggunakan Flutter dan terhubung dengan (https://docs.google.com/spreadsheets) untuk mempermudah pengelolaan dan pencatatan kehadiran.
+
