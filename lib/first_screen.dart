@@ -2,6 +2,7 @@ import 'dart:async';
 // import 'dart:convert';
 import 'dart:io';
 import 'package:art_sweetalert/art_sweetalert.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 // import 'package:qrcode_absensi/model/data.dart';
 import 'package:qrcode_absensi/qr_scanner.dart';
@@ -59,7 +60,7 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     getDataSheets();
@@ -347,6 +348,13 @@ class _FirstScreenState extends State<FirstScreen> {
               type: ArtSweetAlertType.info));
       Navigator.of(context).pop();
       isExist = 0;
+    } else if (tempNik == '' || tempNik.isEmpty) {
+      await ArtSweetAlert.show(
+          barrierDismissible: true,
+          context: context,
+          artDialogArgs: ArtDialogArgs(
+              title: "NIK tidak boleh kosong!", type: ArtSweetAlertType.info));
+      Navigator.of(context).pop();
     } else {
       print('tidak ada duplicate data');
       String tempTgl = "$formattedDate $formattedTime";
@@ -416,7 +424,7 @@ class _FirstScreenState extends State<FirstScreen> {
         ),
       ),
       body: Container(
-        key: _formKey,
+        // key: _formKey,
         width: double.infinity,
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -525,8 +533,10 @@ class _FirstScreenState extends State<FirstScreen> {
                   //     QRScanner as Route<Object?>,
                   //     (route) => true);
 
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => const QRScanner()));
+                  // Get.to(const QRScanner());
+                  Get.to(() => const QRScanner());
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (BuildContext context) => const QRScanner()));
                   // Navigator.pushReplacement(
                   //     context,
                   //     MaterialPageRoute(

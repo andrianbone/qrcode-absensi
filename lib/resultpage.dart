@@ -6,6 +6,7 @@ import 'package:qrcode_absensi/first_screen.dart';
 import 'package:googleapis/sheets/v4.dart' as sheets;
 import 'package:googleapis_auth/auth_io.dart' as auth;
 import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 // // import 'dart:io';
 import 'dart:async';
 import 'package:art_sweetalert/art_sweetalert.dart';
@@ -203,12 +204,14 @@ class _ResultPageState extends State<ResultPage> {
                   title: "Succes , Data Berhasil Disimpan..",
                   type: ArtSweetAlertType.info));
           nikC.clear();
+          // ignore: use_build_context_synchronously
           Navigator.of(context).pop();
-          Navigator.pushAndRemoveUntil(
-              // ignore: use_build_context_synchronously
-              context,
-              FirstScreen as Route<Object?>,
-              (route) => true);
+          Get.offAll(() => const FirstScreen());
+          // Navigator.pushAndRemoveUntil(
+          //     // ignore: use_build_context_synchronously
+          //     context,
+          //     FirstScreen as Route<Object?>,
+          //     (route) => true);
           // Navigator.of(context).pushReplacement(MaterialPageRoute(
           //     builder: (BuildContext context) => const FirstScreen()));
         }

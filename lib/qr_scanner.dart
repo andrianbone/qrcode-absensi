@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:qrcode_absensi/result_screen.dart';
+// import 'package:qrcode_absensi/result_screen.dart';
 import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
 import 'package:qrcode_absensi/resultpage.dart';
 
@@ -113,14 +114,18 @@ class _QRScannerState extends State<QRScanner> {
                             //               // kode_barcode: kode_barcode
                             //               // product: Barcode(rawValue: rawValue)
                             //             )));
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        ResultPage(
-                                          closeScreen: closeScreen,
-                                          code: kodeBarcode.toString(),
-                                        )));
+                            Get.offAll(() => ResultPage(
+                                  closeScreen: closeScreen,
+                                  code: kodeBarcode.toString(),
+                                ));
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext context) =>
+                            //             ResultPage(
+                            //               closeScreen: closeScreen,
+                            //               code: kodeBarcode.toString(),
+                            //             )));
                           }
                         }),
                     QRScannerOverlay(
