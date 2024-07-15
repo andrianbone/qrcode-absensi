@@ -60,7 +60,7 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  // final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     getDataSheets();
@@ -104,6 +104,7 @@ class _FirstScreenState extends State<FirstScreen> {
   // }
 
   final TextEditingController nikC = TextEditingController();
+  final TextEditingController ticketC = TextEditingController();
   String fileContent = '';
   var time = DateTime.now();
 
@@ -310,6 +311,16 @@ class _FirstScreenState extends State<FirstScreen> {
   //   }
   // }
 
+  // String _selectedValue = '1'; // Initial selected value
+
+  // List<String> dropdownItems = [
+  //   '1',
+  //   '2',
+  //   '3',
+  //   '4',
+  //   '5',
+  // ];
+
   void submitForm() async {
     List<String> data = await readData();
     // print(data);
@@ -317,10 +328,14 @@ class _FirstScreenState extends State<FirstScreen> {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     String formattedTime = DateFormat('HH:mm:ss').format(now);
+
     const String scriptURL =
-        'https://script.google.com/macros/s/AKfycbxp2RbAX5QHh5FeMexBbYpCoEHpznNYAIeS3_M101Hgg_w69bzqyVubzlbLL-zaB3cbFA/exec';
+        // 'https://script.google.com/macros/s/AKfycbxp2RbAX5QHh5FeMexBbYpCoEHpznNYAIeS3_M101Hgg_w69bzqyVubzlbLL-zaB3cbFA/exec'
+        'https://script.google.com/macros/s/AKfycbynGQtSprZyqYSe6cCsG_BPA7ptO3u6lQwCJSFDiIb6NrVvFH4IUbqZKD8Sa5YMwzRR5g/exec';
 
     String tempNik = nikC.text;
+    String tempTicket = ticketC.text;
+    // String tempTicket = _selectedValue;
     showDialog(
       // ignore: use_build_context_synchronously
       context: context,
@@ -348,17 +363,21 @@ class _FirstScreenState extends State<FirstScreen> {
               type: ArtSweetAlertType.info));
       Navigator.of(context).pop();
       isExist = 0;
-    } else if (tempNik == '' || tempNik.isEmpty) {
+    } else if (tempNik == '' ||
+        tempNik.isEmpty ||
+        tempTicket == '' ||
+        tempTicket.isEmpty) {
       await ArtSweetAlert.show(
           barrierDismissible: true,
           context: context,
           artDialogArgs: ArtDialogArgs(
-              title: "NIK tidak boleh kosong!", type: ArtSweetAlertType.info));
+              title: "NIK atau Ticket tidak boleh kosong!",
+              type: ArtSweetAlertType.info));
       Navigator.of(context).pop();
     } else {
       print('tidak ada duplicate data');
       String tempTgl = "$formattedDate $formattedTime";
-      String queryString = "?nik=$tempNik&tanggal=$tempTgl";
+      String queryString = "?nik=$tempNik&tanggal=$tempTgl&ticket=$tempTicket";
       var finalURI = Uri.parse(scriptURL + queryString);
       var response = await http.get(finalURI);
 
@@ -381,6 +400,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   title: "Succes , Data Berhasil Disimpan..",
                   type: ArtSweetAlertType.info));
           nikC.clear();
+          ticketC.clear();
           Navigator.of(context).pop();
           readData();
         }
@@ -424,7 +444,7 @@ class _FirstScreenState extends State<FirstScreen> {
         ),
       ),
       body: Container(
-        // key: _formKey,
+        key: _formKey,
         width: double.infinity,
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -486,6 +506,73 @@ class _FirstScreenState extends State<FirstScreen> {
             const SizedBox(
               height: 15,
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            //   child: Center(
+            //       child: DropdownSearch<String>(
+            //     label: "Ticket ..",
+            //     showClearButton: true,
+            //     items: const [
+            //       "Brazil",
+            //       "Italia (Disabled)",
+            //       "Tunisia",
+            //       'Canada'
+            //     ],
+            //     // onFind: (String filter) {
+
+            //     // },
+            //     onChanged: print,
+            //     selectedItem: "Brazil",
+            //   )),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            //   child: DropdownButtonFormField(
+            //     value: _selectedValue, // Currently selected value
+            //     // hint: Text('Select an option'), // Placeholder text
+            //     decoration: InputDecoration(
+            //       enabledBorder: OutlineInputBorder(
+            //         borderSide: const BorderSide(color: Colors.blue, width: 2),
+            //         borderRadius: BorderRadius.circular(20),
+            //       ),
+            //       border: OutlineInputBorder(
+            //         borderSide: const BorderSide(color: Colors.blue, width: 2),
+            //         borderRadius: BorderRadius.circular(20),
+            //       ),
+            //       filled: true,
+            //       fillColor: Colors.white,
+            //     ),
+            //     items: dropdownItems
+            //         .map((String item) => DropdownMenuItem<String>(
+            //             value: item, child: Text(item)))
+            //         .toList(), // List of dropdown options
+            //     icon: const Icon(Icons.keyboard_arrow_down),
+            //     style: const TextStyle(color: Colors.black),
+            //     onChanged: (String? newValue) {
+            //       // Handles dropdown selection change
+            //       setState(() {
+            //         _selectedValue = newValue!;
+            //       });
+            //     },
+            //   ),
+            // ),
+            TextField(
+              autocorrect: false,
+              controller: ticketC,
+              keyboardType: TextInputType.number,
+              readOnly: false,
+              // maxLength: 20,
+              decoration: InputDecoration(
+                labelText: "Jumlah Ticket",
+                hintText: '',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width - 40,
               height: 45,
@@ -532,9 +619,8 @@ class _FirstScreenState extends State<FirstScreen> {
                   //     context,
                   //     QRScanner as Route<Object?>,
                   //     (route) => true);
-
-                  // Get.to(const QRScanner());
-                  Get.to(() => const QRScanner());
+                  Get.to(const QRScanner());
+                  // Get.to(() => const QRScanner());
                   // Navigator.of(context).push(MaterialPageRoute(
                   //     builder: (BuildContext context) => const QRScanner()));
                   // Navigator.pushReplacement(

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 // import 'package:qrcode_absensi/result_screen.dart';
-import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
+// import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
 import 'package:qrcode_absensi/resultpage.dart';
 
 const bgColor = Color(0xfffafafa);
-// const bgColor = Color(0xfffafafa);
 String? kodeBarcode;
 
 class QRScanner extends StatefulWidget {
@@ -30,7 +29,6 @@ class _QRScannerState extends State<QRScanner> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
-      // drawer: const Drawer(),
       appBar: AppBar(
         actions: [
           IconButton(
@@ -66,34 +64,38 @@ class _QRScannerState extends State<QRScanner> {
       ),
       body: Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             const Expanded(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Place the QR code in the area",
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Place the QR code in the area",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Scanning will be started automatically",
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 14,
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-              ],
-            )),
+                  Text(
+                    "Scanning will be started automatically",
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // const SizedBox(
+            //   height: 50,
+            // ),
             Expanded(
                 flex: 1,
                 child: Stack(
@@ -128,11 +130,11 @@ class _QRScannerState extends State<QRScanner> {
                             //             )));
                           }
                         }),
-                    QRScannerOverlay(
-                      overlayColor: bgColor,
-                      scanAreaHeight: 390,
-                      scanAreaWidth: 345,
-                    )
+                    // QRScannerOverlay(
+                    //   overlayColor: bgColor,
+                    //   scanAreaHeight: 420,
+                    //   scanAreaWidth: 345,
+                    // )
                   ],
                 )),
             Expanded(

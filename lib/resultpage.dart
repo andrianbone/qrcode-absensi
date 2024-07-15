@@ -72,6 +72,7 @@ class _ResultPageState extends State<ResultPage> {
   }
 
   final TextEditingController nikC = TextEditingController();
+  final TextEditingController ticketC = TextEditingController();
 
   Future<List<String>> readData() async {
     var client = await auth.clientViaServiceAccount(
@@ -148,9 +149,11 @@ class _ResultPageState extends State<ResultPage> {
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     String formattedTime = DateFormat('HH:mm:ss').format(now);
     const String scriptURL =
-        'https://script.google.com/macros/s/AKfycbxp2RbAX5QHh5FeMexBbYpCoEHpznNYAIeS3_M101Hgg_w69bzqyVubzlbLL-zaB3cbFA/exec';
+        // 'https://script.google.com/macros/s/AKfycbxp2RbAX5QHh5FeMexBbYpCoEHpznNYAIeS3_M101Hgg_w69bzqyVubzlbLL-zaB3cbFA/exec';
+        'https://script.google.com/macros/s/AKfycbynGQtSprZyqYSe6cCsG_BPA7ptO3u6lQwCJSFDiIb6NrVvFH4IUbqZKD8Sa5YMwzRR5g/exec';
 
     String tempNik = nikC.text;
+    String tempTicket = ticketC.text;
     showDialog(
       // ignore: use_build_context_synchronously
       context: context,
@@ -178,6 +181,17 @@ class _ResultPageState extends State<ResultPage> {
               type: ArtSweetAlertType.info));
       Navigator.of(context).pop();
       isExist = 0;
+    } else if (tempNik == '' ||
+        tempNik.isEmpty ||
+        tempTicket == '' ||
+        tempTicket.isEmpty) {
+      await ArtSweetAlert.show(
+          barrierDismissible: true,
+          context: context,
+          artDialogArgs: ArtDialogArgs(
+              title: "NIK atau Ticket tidak boleh kosong!",
+              type: ArtSweetAlertType.info));
+      Navigator.of(context).pop();
     } else {
       print('tidak ada duplicate data');
       String tempTgl = "$formattedDate $formattedTime";
@@ -187,7 +201,6 @@ class _ResultPageState extends State<ResultPage> {
 
       if (response.statusCode == 200) {
         print('Response: ${response.body}');
-        // Check if the response body contains any error messages
         if (response.body.contains('error')) {
           await ArtSweetAlert.show(
               barrierDismissible: true,
@@ -204,16 +217,9 @@ class _ResultPageState extends State<ResultPage> {
                   title: "Succes , Data Berhasil Disimpan..",
                   type: ArtSweetAlertType.info));
           nikC.clear();
-          // ignore: use_build_context_synchronously
+          ticketC.clear();
           Navigator.of(context).pop();
           Get.offAll(() => const FirstScreen());
-          // Navigator.pushAndRemoveUntil(
-          //     // ignore: use_build_context_synchronously
-          //     context,
-          //     FirstScreen as Route<Object?>,
-          //     (route) => true);
-          // Navigator.of(context).pushReplacement(MaterialPageRoute(
-          //     builder: (BuildContext context) => const FirstScreen()));
         }
       } else {
         await ArtSweetAlert.show(
@@ -332,8 +338,11 @@ class _ResultPageState extends State<ResultPage> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                 onPressed: () async {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const QRScanner()));
+                  Get.to(const QRScanner());
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => const QRScanner()));
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => MyQRCodeScanner()));
                 },
                 child: const Text(
                   "Scan Barcode",
